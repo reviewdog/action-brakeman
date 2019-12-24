@@ -1,0 +1,33 @@
+name: 'Run brakeman with reviewdog'
+description: '🐶 Run brakeman with reviewdog on pull requests to improve code review experience.'
+author: 'mgrachev (reviewdog)'
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN.'
+    required: true
+  brakeman_flags:
+    description: 'brakeman flags. (brakeman --quiet --format tabs <brakeman_flags>)'
+    default: ''
+  tool_name:
+    description: 'Tool name to use for reviewdog reporter'
+    default: 'brakeman'
+  level:
+    description: 'Report level for reviewdog [info,warning,error]'
+    default: 'error'
+  reporter:
+    description: |
+      Reporter of reviewdog command [github-pr-check,github-pr-review].
+      Default is github-pr-check.
+    default: 'github-pr-check'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.github_token }}
+    - ${{ inputs.brakeman_flags }}
+    - ${{ inputs.tool_name }}
+    - ${{ inputs.level }}
+    - ${{ inputs.reporter }}
+branding:
+  icon: 'check-circle'
+  color: 'red'
