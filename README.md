@@ -60,7 +60,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v1
       - name: brakeman
-        uses: mgrachev/action-brakeman@v1.0.0
+        uses: reviewdog/action-brakeman@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
