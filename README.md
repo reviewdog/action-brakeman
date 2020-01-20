@@ -1,6 +1,8 @@
 # GitHub Action: Run brakeman with reviewdog 🐶
 
-![](https://github.com/mgrachev/action-brakeman/workflows/Docker%20Image%20CI/badge.svg)
+![](https://github.com/mgrachev/action-brakeman/workflows/CI/badge.svg)
+![](https://img.shields.io/github/license/mgrachev/action-brakeman)
+![](https://img.shields.io/github/v/release/mgrachev/action-brakeman)
 
 This action runs [brakeman](https://github.com/presidentbeef/brakeman) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
@@ -72,3 +74,7 @@ jobs:
       alt="Sponsored by Evrone" width="210">
   </a>
 </p>
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit)
