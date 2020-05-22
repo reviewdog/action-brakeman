@@ -1,8 +1,11 @@
 # GitHub Action: Run brakeman with reviewdog 🐶
 
-![](https://github.com/reviewdog/action-brakeman/workflows/CI/badge.svg)
-![](https://img.shields.io/github/license/reviewdog/action-brakeman)
-![](https://img.shields.io/github/v/release/reviewdog/action-brakeman)
+[![](https://github.com/reviewdog/action-brakeman/workflows/CI/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3ACI)
+[![](https://img.shields.io/github/license/reviewdog/action-brakeman)](./LICENSE)
+[![depup](https://github.com/reviewdog/action-brakeman/workflows/depup/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3Adepup)
+[![release](https://github.com/reviewdog/action-brakeman/workflows/release/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/reviewdog/action-brakeman?logo=github&sort=semver)](https://github.com/reviewdog/action-brakeman/releases)
+[![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
 This action runs [brakeman](https://github.com/presidentbeef/brakeman) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
@@ -28,9 +31,14 @@ With `reporter: github-pr-review` a comment is added to the Pull Request Convers
 
 **Required**. Must be in form of `github_token: ${{ secrets.github_token }}`'.
 
+### `brakeman_version`
+
+Optional. Set brakeman version. 
+By default, the latest version is installed.
+
 ### `brakeman_flags`
 
-Optional. brakeman flags. (brakeman --quiet --format tabs `<brakeman_flags>`)
+Optional. Brakeman flags. (brakeman --quiet --format tabs `<brakeman_flags>`)
 
 ### `tool_name`
 
@@ -47,6 +55,20 @@ It's same as `-level` flag of reviewdog.
 Optional. Reporter of reviewdog command [`github-pr-check`, `github-pr-review`].
 The default is `github-pr-check`.
 
+### `filter_mode`
+
+Optional. Filtering mode for the reviewdog command [`added`, `diff_context`, `file`, `nofilter`].
+Default is `added`.
+
+### `fail_on_error`
+
+Optional.  Exit code for reviewdog when errors are found [`true`, `false`]
+Default is `false`.
+
+### `reviewdog_flags`
+
+Optional. Additional reviewdog flags.
+
 ## Example usage
 
 ```yml
@@ -62,6 +84,7 @@ jobs:
       - name: brakeman
         uses: reviewdog/action-brakeman@v1
         with:
+          brakeman_version: 4.8.2
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
 ```
