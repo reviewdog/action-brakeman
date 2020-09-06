@@ -34,7 +34,9 @@ With `reporter: github-pr-review` a comment is added to the Pull Request Convers
 ### `brakeman_version`
 
 Optional. Set brakeman version. 
-By default, the latest version is installed.
+* empty or omit: install latest version
+* `gemfile`: install version from Gemfile (`Gemfile.lock` should be presented, otherwise it will fallback to latest bundler version)
+* version (e.g. `4.8.2`): install said version
 
 ### `brakeman_flags`
 
