@@ -42,6 +42,5 @@ brakeman --quiet --format tabs ${INPUT_BRAKEMAN_FLAGS} \
     -level="${INPUT_LEVEL}" \
     ${INPUT_REVIEWDOG_FLAGS}
 exit_code=$?
-echo '::endgroup::'
 
 exit $exit_code
