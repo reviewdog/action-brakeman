@@ -41,3 +41,6 @@ brakeman --quiet --format tabs ${INPUT_BRAKEMAN_FLAGS} \
     -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
     -level="${INPUT_LEVEL}" \
     ${INPUT_REVIEWDOG_FLAGS}
+exit_code=$?
+
+exit $exit_code
