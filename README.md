@@ -1,16 +1,3 @@
-# GitHub Action: Run brakeman with reviewdog 🐶
-
-[![](https://github.com/reviewdog/action-brakeman/workflows/CI/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3ACI)
-[![](https://img.shields.io/github/license/reviewdog/action-brakeman)](./LICENSE)
-[![depup](https://github.com/reviewdog/action-brakeman/workflows/depup/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3Adepup)
-[![release](https://github.com/reviewdog/action-brakeman/workflows/release/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/reviewdog/action-brakeman?logo=github&sort=semver)](https://github.com/reviewdog/action-brakeman/releases)
-[![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
-
-This action runs [brakeman](https://github.com/presidentbeef/brakeman) with
-[reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
-code review experience.
-
 ## Examples
 
 ### With `github-pr-check`
@@ -90,16 +77,3 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
 ```
-
-## Sponsor
-
-<p>
-  <a href="https://evrone.com/?utm_source=action-brakeman">
-    <img src="https://www.mgrachev.com/assets/static/evrone-sponsored-300.png" 
-      alt="Sponsored by Evrone" width="210">
-  </a>
-</p>
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit)
