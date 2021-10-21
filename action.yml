@@ -4,7 +4,7 @@ author: 'mgrachev (reviewdog)'
 inputs:
   github_token:
     description: 'GITHUB_TOKEN.'
-    required: true
+    default: ${{ github.token }}
   brakeman_version:
     description: 'Brakeman version'
   brakeman_flags:
