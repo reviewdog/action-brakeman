@@ -29,7 +29,7 @@ With `reporter: github-pr-review` a comment is added to the Pull Request Convers
 
 ### `github_token`
 
-**Required**. Must be in form of `github_token: ${{ secrets.github_token }}`'.
+`GITHUB_TOKEN`. Default is `${{ github.token }}`.
 
 ### `brakeman_version`
 
@@ -87,7 +87,6 @@ jobs:
         uses: reviewdog/action-brakeman@v1
         with:
           brakeman_version: 4.8.2
-          github_token: ${{ secrets.github_token }}
           reporter: github-pr-review # Default is github-pr-check
 ```
 
