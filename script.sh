@@ -1,11 +1,5 @@
 #!/bin/sh -e
 
-version() {
-  if [ -n "$1" ]; then
-    echo "-v $1"
-  fi
-}
-
 cd "$GITHUB_WORKSPACE"
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
@@ -22,7 +16,7 @@ if [ "$INPUT_BRAKEMAN_VERSION" = "gemfile" ]; then
   # if Gemfile.lock is here
   if [ -f 'Gemfile.lock' ]; then
     # grep for brakeman version
-    BRAKEMAN_GEMFILE_VERSION=$(cat Gemfile.lock | grep -oP '^\s{4}brakeman\s\(\K.*(?=\))')
+    BRAKEMAN_GEMFILE_VERSION=$(ruby -ne 'print $& if /^\s{4}brakeman\s\(\K.*(?=\))/' Gemfile.lock)
 
     # if brakeman version found, then pass it to the gem install
     # left it empty otherwise, so no version will be passed
@@ -39,7 +33,7 @@ if [ "$INPUT_BRAKEMAN_VERSION" = "gemfile" ]; then
     BRAKEMAN_VERSION=$INPUT_BRAKEMAN_VERSION
 fi
 
-gem install -N brakeman $(version "$BRAKEMAN_VERSION")
+gem install -N brakeman --version "${BRAKEMAN_VERSION}"
 echo '::endgroup::'
 
 echo '::group:: Running brakeman with reviewdog 🐶 ...'
