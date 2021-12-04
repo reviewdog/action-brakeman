@@ -3,7 +3,7 @@ description: '🐶 Run brakeman with reviewdog on pull requests to improve code 
 author: 'mgrachev (reviewdog)'
 inputs:
   github_token:
-    description: 'GITHUB_TOKEN.'
+    description: 'GITHUB_TOKEN'
     default: ${{ github.token }}
   brakeman_version:
     description: 'Brakeman version'
@@ -35,18 +35,21 @@ inputs:
     description: 'Additional reviewdog flags'
     default: ''
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.github_token }}
-    - ${{ inputs.brakeman_version }}
-    - ${{ inputs.brakeman_flags }}
-    - ${{ inputs.tool_name }}
-    - ${{ inputs.level }}
-    - ${{ inputs.reporter }}
-    - ${{ inputs.filter_mode }}
-    - ${{ inputs.fail_on_error }}
-    - ${{ inputs.reviewdog_flags }}
+  using: 'composite'
+  steps:
+    - run: $GITHUB_ACTION_PATH/script.sh
+      shell: sh
+      env:
+        REVIEWDOG_VERSION: v0.13.0
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_BRAKEMAN_VERSION: ${{ inputs.brakeman_version }}
+        INPUT_BRAKEMAN_FLAGS: ${{ inputs.brakeman_flags }}
+        INPUT_TOOL_NAME: ${{ inputs.tool_name }}
+        INPUT_LEVEL: ${{ inputs.level }}
+        INPUT_REPORTER: ${{ inputs.reporter }}
+        INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
+        INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
+        INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
 branding:
   icon: 'check-circle'
   color: 'red'
