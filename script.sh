@@ -18,11 +18,11 @@ echo '::endgroup::'
 
 echo '::group:: Installing brakeman with extensions ... https://github.com/presidentbeef/brakeman'
 # if 'gemfile' brakeman version selected
-if [ $INPUT_BRAKEMAN_VERSION = "gemfile" ]; then
+if [ "$INPUT_BRAKEMAN_VERSION" = "gemfile" ]; then
   # if Gemfile.lock is here
   if [ -f 'Gemfile.lock' ]; then
     # grep for brakeman version
-    BRAKEMAN_GEMFILE_VERSION=`cat Gemfile.lock | grep -oP '^\s{4}brakeman\s\(\K.*(?=\))'`
+    BRAKEMAN_GEMFILE_VERSION=$(cat Gemfile.lock | grep -oP '^\s{4}brakeman\s\(\K.*(?=\))')
 
     # if brakeman version found, then pass it to the gem install
     # left it empty otherwise, so no version will be passed
@@ -39,18 +39,18 @@ if [ $INPUT_BRAKEMAN_VERSION = "gemfile" ]; then
     BRAKEMAN_VERSION=$INPUT_BRAKEMAN_VERSION
 fi
 
-gem install -N brakeman $(version $BRAKEMAN_VERSION)
+gem install -N brakeman $(version "$BRAKEMAN_VERSION")
 echo '::endgroup::'
 
 echo '::group:: Running brakeman with reviewdog 🐶 ...'
-brakeman --quiet --format tabs ${INPUT_BRAKEMAN_FLAGS} \
+brakeman --quiet --format tabs "${INPUT_BRAKEMAN_FLAGS}" \
   | reviewdog -f=brakeman \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER}" \
     -filter-mode="${INPUT_FILTER_MODE}" \
     -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
     -level="${INPUT_LEVEL}" \
-    ${INPUT_REVIEWDOG_FLAGS}
+    "${INPUT_REVIEWDOG_FLAGS}"
 
 exit_code=$?
 echo '::endgroup::'
