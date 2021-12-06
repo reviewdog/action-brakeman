@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -o pipefail
+
 version() {
   if [ -n "$1" ]; then
     echo "-v $1"
