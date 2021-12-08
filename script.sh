@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-cd "$GITHUB_WORKSPACE"
+cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 TEMP_PATH="$(mktemp -d)"

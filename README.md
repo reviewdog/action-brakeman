@@ -70,6 +70,10 @@ Default is `false`.
 
 Optional. Additional reviewdog flags.
 
+### `workdir`
+
+Optional. The directory from which to look for and run brakeman. Default `.`.
+
 ## Example usage
 
 ```yml

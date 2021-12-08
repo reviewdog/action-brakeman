@@ -34,6 +34,9 @@ inputs:
   reviewdog_flags:
     description: 'Additional reviewdog flags'
     default: ''
+  workdir:
+    description: "The directory from which to look for and run brakeman. Default '.'"
+    default: '.'
 runs:
   using: 'composite'
   steps:
@@ -50,6 +53,7 @@ runs:
         INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
         INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
+        INPUT_WORKDIR: ${{ inputs.workdir }}
 branding:
   icon: 'check-circle'
   color: 'red'
