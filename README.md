@@ -91,7 +91,7 @@ jobs:
         with:
           ruby-version: 3.0.3
       - name: brakeman
-        uses: reviewdog/action-brakeman@v1
+        uses: reviewdog/action-brakeman@v2
         with:
           brakeman_version: 4.8.2
           reporter: github-pr-review # Default is github-pr-check
