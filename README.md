@@ -1,6 +1,5 @@
 # GitHub Action: Run brakeman with reviewdog 🐶
 
-[![](https://github.com/reviewdog/action-brakeman/workflows/CI/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3ACI)
 [![](https://img.shields.io/github/license/reviewdog/action-brakeman)](./LICENSE)
 [![depup](https://github.com/reviewdog/action-brakeman/workflows/depup/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3Adepup)
 [![release](https://github.com/reviewdog/action-brakeman/workflows/release/badge.svg)](https://github.com/reviewdog/action-brakeman/actions?query=workflow%3Arelease)
@@ -71,6 +70,10 @@ Default is `false`.
 
 Optional. Additional reviewdog flags.
 
+### `workdir`
+
+Optional. The directory from which to look for and run brakeman. Default `.`.
+
 ## Example usage
 
 ```yml
@@ -83,6 +86,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v1
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.3
       - name: brakeman
         uses: reviewdog/action-brakeman@v1
         with:

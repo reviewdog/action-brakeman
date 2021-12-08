@@ -1,9 +1,24 @@
 name: CI
-on: [push]
+on: [pull_request]
 jobs:
-  build:
+  test-skip-install-and-use-bundler:
+    name: runner / brakeman
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: test/using_gemfile
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/test/using_gemfile/Gemfile
     steps:
-    - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag reviewdog-brakeman:$(date +%s)
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+          bundler-cache: true
+      - name: install brakeman with version written in Gemfile.lock
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          brakeman_version: 'gemfile'
+      - run: |
+          test "$(bundle exec brakeman --version)" == "brakeman 5.1.2"
