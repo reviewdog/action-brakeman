@@ -37,14 +37,16 @@ gem install -N brakeman --version "${BRAKEMAN_VERSION}"
 echo '::endgroup::'
 
 echo '::group:: Running brakeman with reviewdog 🐶 ...'
-brakeman --quiet --format tabs "${INPUT_BRAKEMAN_FLAGS}" \
-  | reviewdog -f=brakeman \
-    -name="${INPUT_TOOL_NAME}" \
-    -reporter="${INPUT_REPORTER}" \
-    -filter-mode="${INPUT_FILTER_MODE}" \
-    -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
-    -level="${INPUT_LEVEL}" \
-    "${INPUT_REVIEWDOG_FLAGS}"
+BRAKEMAN_REPORT_FILE="$TEMP_PATH"/brakeman_report
+brakeman --quiet --format tabs "${INPUT_BRAKEMAN_FLAGS}" --output "$BRAKEMAN_REPORT_FILE"
+reviewdog < "$BRAKEMAN_REPORT_FILE" \
+  -f=brakeman \
+  -name="${INPUT_TOOL_NAME}" \
+  -reporter="${INPUT_REPORTER}" \
+  -filter-mode="${INPUT_FILTER_MODE}" \
+  -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
+  -level="${INPUT_LEVEL}" \
+  "${INPUT_REVIEWDOG_FLAGS}"
 
 exit_code=$?
 echo '::endgroup::'
