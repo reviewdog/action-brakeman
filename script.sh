@@ -38,7 +38,9 @@ echo '::endgroup::'
 
 echo '::group:: Running brakeman with reviewdog 🐶 ...'
 BRAKEMAN_REPORT_FILE="$TEMP_PATH"/brakeman_report
-brakeman --quiet --format tabs "${INPUT_BRAKEMAN_FLAGS}" --output "$BRAKEMAN_REPORT_FILE"
+
+# shellcheck disable=SC2086
+brakeman --quiet --format tabs ${INPUT_BRAKEMAN_FLAGS} --output "$BRAKEMAN_REPORT_FILE"
 reviewdog < "$BRAKEMAN_REPORT_FILE" \
   -f=brakeman \
   -name="${INPUT_TOOL_NAME}" \
