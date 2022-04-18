@@ -6,7 +6,12 @@ version() {
   fi
 }
 
-cd "$GITHUB_WORKSPACE"
+if [ -n "${GITHUB_WORKSPACE}" ]
+then
+  git config --global --add safe.directory "${GITHUB_WORKSPACE}" || exit 1
+  git config --global --add safe.directory "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit 1
+  cd "${GITHUB_WORKSPACE}" || exit 1
+fi
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 # if 'gemfile' brakeman version selected
