@@ -46,7 +46,7 @@ echo '::group:: Running brakeman with reviewdog 🐶 ...'
 BRAKEMAN_REPORT_FILE="$TEMP_PATH"/brakeman_report
 
 # shellcheck disable=SC2086
-brakeman --quiet --format tabs ${INPUT_BRAKEMAN_FLAGS} --output "$BRAKEMAN_REPORT_FILE"
+brakeman --quiet --format tabs --no-exit-on-warn --no-exit-on-error ${INPUT_BRAKEMAN_FLAGS} --output "$BRAKEMAN_REPORT_FILE"
 reviewdog < "$BRAKEMAN_REPORT_FILE" \
   -f=brakeman \
   -name="${INPUT_TOOL_NAME}" \

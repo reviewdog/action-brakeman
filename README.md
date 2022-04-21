@@ -39,7 +39,7 @@ Optional. Set brakeman version.
 
 ### `brakeman_flags`
 
-Optional. Brakeman flags. (brakeman --quiet --format tabs `<brakeman_flags>`)
+Optional. Brakeman flags. (brakeman --quiet --format tabs --no-exit-on-warn --no-exit-on-error `<brakeman_flags>`)
 
 ### `tool_name`
 
