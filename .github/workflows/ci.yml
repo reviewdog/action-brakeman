@@ -10,7 +10,7 @@ jobs:
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/test/using_gemfile/Gemfile
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0
@@ -19,7 +19,7 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          brakeman_version: 'gemfile'
-          brakeman_flags: '--force'
+          brakeman_version: "gemfile"
+          brakeman_flags: "--force"
       - run: |
           test "$(bundle exec brakeman --version)" == "brakeman 5.1.2"
