@@ -32,10 +32,11 @@ With `reporter: github-pr-review` a comment is added to the Pull Request Convers
 
 ### `brakeman_version`
 
-Optional. Set brakeman version. 
-* empty or omit: install latest version
-* `gemfile`: install version from Gemfile (`Gemfile.lock` should be presented, otherwise it will fallback to latest bundler version)
-* version (e.g. `4.8.2`): install said version
+Optional. Set brakeman version.
+
+- empty or omit: install latest version
+- `gemfile`: install version from Gemfile (`Gemfile.lock` should be presented, otherwise it will fallback to latest bundler version)
+- version (e.g. `4.8.2`): install said version
 
 ### `brakeman_flags`
 
@@ -63,7 +64,7 @@ Default is `added`.
 
 ### `fail_on_error`
 
-Optional.  Exit code for reviewdog when errors are found [`true`, `false`]
+Optional. Exit code for reviewdog when errors are found [`true`, `false`]
 Default is `false`.
 
 ### `reviewdog_flags`
@@ -85,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
