@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     brakeman (5.1.2)
+    racc (1.7.3)
 
 PLATFORMS
   x86_64-darwin-20
@@ -9,6 +10,7 @@ PLATFORMS
 
 DEPENDENCIES
   brakeman
+  racc
 
 BUNDLED WITH
    2.2.32

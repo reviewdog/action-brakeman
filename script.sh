@@ -16,37 +16,45 @@ echo '::group::🐶 Installing reviewdog ... https://github.com/reviewdog/review
 curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "${TEMP_PATH}" "${REVIEWDOG_VERSION}" 2>&1
 echo '::endgroup::'
 
-echo '::group:: Installing brakeman with extensions ... https://github.com/presidentbeef/brakeman'
-# if 'gemfile' brakeman version selected
-if [ "$INPUT_BRAKEMAN_VERSION" = "gemfile" ]; then
-  # if Gemfile.lock is here
-  if [ -f 'Gemfile.lock' ]; then
-    # grep for brakeman version
-    BRAKEMAN_GEMFILE_VERSION=$(ruby -ne 'print $& if /^\s{4}brakeman\s\(\K.*(?=\))/' Gemfile.lock)
+if [ "${INPUT_SKIP_INSTALL}" = "false" ]; then
+  echo '::group:: Installing brakeman with extensions ... https://github.com/presidentbeef/brakeman'
+  # if 'gemfile' brakeman version selected
+  if [ "$INPUT_BRAKEMAN_VERSION" = "gemfile" ]; then
+    # if Gemfile.lock is here
+    if [ -f 'Gemfile.lock' ]; then
+      # grep for brakeman version
+      BRAKEMAN_GEMFILE_VERSION=$(ruby -ne 'print $& if /^\s{4}brakeman\s\(\K.*(?=\))/' Gemfile.lock)
 
-    # if brakeman version found, then pass it to the gem install
-    # left it empty otherwise, so no version will be passed
-    if [ -n "$BRAKEMAN_GEMFILE_VERSION" ]; then
-      BRAKEMAN_VERSION=$BRAKEMAN_GEMFILE_VERSION
+      # if brakeman version found, then pass it to the gem install
+      # left it empty otherwise, so no version will be passed
+      if [ -n "$BRAKEMAN_GEMFILE_VERSION" ]; then
+        BRAKEMAN_VERSION=$BRAKEMAN_GEMFILE_VERSION
+        else
+          printf "Cannot get the brakeman's version from Gemfile.lock. The latest version will be installed."
+      fi
       else
-        printf "Cannot get the brakeman's version from Gemfile.lock. The latest version will be installed."
+        printf 'Gemfile.lock not found. The latest version will be installed.'
     fi
     else
-      printf 'Gemfile.lock not found. The latest version will be installed.'
+      # set desired brakeman version
+      BRAKEMAN_VERSION=$INPUT_BRAKEMAN_VERSION
   fi
-  else
-    # set desired brakeman version
-    BRAKEMAN_VERSION=$INPUT_BRAKEMAN_VERSION
+
+  gem install -N brakeman --version "${BRAKEMAN_VERSION}"
+  echo '::endgroup::'
 fi
 
-gem install -N brakeman --version "${BRAKEMAN_VERSION}"
-echo '::endgroup::'
+if [ "${INPUT_USE_BUNDLER}" = "false" ]; then
+  BUNDLE_EXEC=""
+else
+  BUNDLE_EXEC="bundle exec "
+fi
 
 echo '::group:: Running brakeman with reviewdog 🐶 ...'
 BRAKEMAN_REPORT_FILE="$TEMP_PATH"/brakeman_report
 
 # shellcheck disable=SC2086
-brakeman --quiet --format tabs --no-exit-on-warn --no-exit-on-error ${INPUT_BRAKEMAN_FLAGS} --output "$BRAKEMAN_REPORT_FILE"
+${BUNDLE_EXEC}brakeman --quiet --format tabs --no-exit-on-warn --no-exit-on-error ${INPUT_BRAKEMAN_FLAGS} --output "$BRAKEMAN_REPORT_FILE"
 reviewdog < "$BRAKEMAN_REPORT_FILE" \
   -f=brakeman \
   -name="${INPUT_TOOL_NAME}" \
