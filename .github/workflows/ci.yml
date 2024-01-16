@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: test/using_gemfile
+        working-directory: test/using_bundler
     env:
-      BUNDLE_GEMFILE: ${{ github.workspace }}/test/using_gemfile/Gemfile
+      BUNDLE_GEMFILE: ${{ github.workspace }}/test/using_bundler/Gemfile
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
@@ -19,7 +19,8 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          brakeman_version: "gemfile"
           brakeman_flags: "--force"
+          skip_install: 'true'
+          use_bundler: 'true'
       - run: |
           test "$(bundle exec brakeman --version)" == "brakeman 5.1.2"

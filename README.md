@@ -75,6 +75,14 @@ Optional. Additional reviewdog flags.
 
 Optional. The directory from which to look for and run brakeman. Default `.`.
 
+### `skip_install`
+
+Optional. Do not install Brakeman. Default: `false`.
+
+### `use_bundler`
+
+Optional. Run Brakeman with bundle exec. Default: `false`.
+
 ## Example usage
 
 ```yml
