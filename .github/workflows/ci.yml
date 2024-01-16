@@ -15,7 +15,7 @@ jobs:
         with:
           ruby-version: 3.0
           bundler-cache: true
-      - name: install brakeman with version written in Gemfile.lock
+      - name: brakeman with skip install and using bundler
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
