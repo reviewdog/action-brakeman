@@ -49,7 +49,7 @@ runs:
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: sh
       env:
-        REVIEWDOG_VERSION: v0.15.0
+        REVIEWDOG_VERSION: v0.17.1
         INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
         INPUT_BRAKEMAN_VERSION: ${{ inputs.brakeman_version }}
         INPUT_BRAKEMAN_FLAGS: ${{ inputs.brakeman_flags }}
