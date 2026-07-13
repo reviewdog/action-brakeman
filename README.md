@@ -90,6 +90,10 @@ Optional. Do not install Brakeman. Default: `false`.
 
 Optional. Run Brakeman with bundle exec. Default: `false`.
 
+### `reviewdog_install_retries`
+
+Optional. Number of times to retry downloading the reviewdog installer. Each retry waits one second. Default: `0`.
+
 ## Example usage
 
 ```yml
